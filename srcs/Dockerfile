@@ -1,12 +1,11 @@
-FROM debian:11
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install software-properties-common ca-certificates apt-transport-https gnupg curl wget -y
-RUN curl https://apt.corretto.aws/corretto.key | apt-key add -
-RUN add-apt-repository 'deb https://apt.corretto.aws stable main'
-RUN apt-get update
-RUN apt-get install -y java-17-amazon-corretto-jdk libxi6 libxtst6 libxrender1
-COPY tools/properties server.properties
-COPY tools/entrypoint.sh entrypoint.sh	
+FROM debian:13
+RUN apt-get update -y && apt-get upgrade -y
+RUN apt-get install ca-certificates apt-transport-https gnupg wget -y
+RUN wget -O - https://apt.corretto.aws/corretto.key | gpg --dearmor -o /usr/share/keyrings/corretto-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/corretto-keyring.gpg] https://apt.corretto.aws stable main" | tee /etc/apt/sources.list.d/corretto.list
+RUN apt-get update -y && apt-get install -y java-21-amazon-corretto-jdk libxi6 libxtst6 libxrender1 -y
+RUN java -version
+COPY tools/entrypoint.sh entrypoint.sh
 ENTRYPOINT ["sh", "entrypoint.sh"]
-CMD ["java", "-Xms2G", "-Xmx2G", "-jar", "paper.jar", "--nogui"]
-#CMD ["sleep", "infinity"]
+CMD ["./start.sh"]
+# CMD [ "sleep", "infinity" ]
