@@ -49,7 +49,7 @@ Example for world backups:
 
 ```yaml
 - type: bind
-  source: /volumes/backups
+  source: /volume/backups
   target: /world_backups
 ```
 
