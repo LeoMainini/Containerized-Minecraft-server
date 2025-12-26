@@ -8,4 +8,3 @@ RUN java -version
 COPY tools/entrypoint.sh entrypoint.sh
 ENTRYPOINT ["sh", "entrypoint.sh"]
 CMD ["./start.sh"]
-# CMD [ "sleep", "infinity" ]

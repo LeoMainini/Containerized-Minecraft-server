@@ -1,0 +1,23 @@
+services:
+  server:
+    build: ./srcs
+    ports:
+      - <OUT PORT>:25565
+    container_name: mc_server
+    restart: no
+    volumes:
+      - type: bind
+        source: ./volume/server
+        target: /mcserver
+    environment:
+      MOTD: <MOTD> 
+      MAX_PLAYERS: <MAX_PLAYERS> 
+      LEVEL_NAME: <LEVEL_NAME>
+      SEED: <SEED>
+      SERVER_IP: <SERVER_IP>
+      SIM_DISTANCE: <SIM_DISTANCE>
+      VIEW_DISTANCE: <VIEW_DISTANCE> 
+      DEDICATED_RAM: <DEDICATED_RAM> 
+      SERVER_JAR_URL: "<SERVER_JAR_URL>" 
+    stdin_open: true
+    tty: true

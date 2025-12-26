@@ -41,32 +41,32 @@ apply_custom_configs() {
 	if [ -n "$motd" ]; then
 		echo "Setting MOTD"
 		line_text=$(cat server.properties | grep "motd=")
-		sed -i "s/$line_text/motd=$motd/g" server.properties 		
+		sed -i "s/$line_text/motd=$motd/g" server.properties
 	fi
 	if [ -n "$max_players" ]; then
 		echo "Setting max players"
 		line_text=$(cat server.properties | grep "max-players=")
-		sed -i "s/$line_text/max-players=$max_players/g" server.properties 		
+		sed -i "s/$line_text/max-players=$max_players/g" server.properties
 	fi
 	if [ -n "$world_name" ]; then
 		echo "Setting world name"
 		line_text=$(cat server.properties | grep "level-name=")
-		sed -i "s/$line_text/level-name=$world_name/g" server.properties 		
+		sed -i "s/$line_text/level-name=$world_name/g" server.properties
 	fi
 	if [ -n "$seed" ]; then
 		echo "Setting seed"
 		line_text=$(cat server.properties | grep "level-seed=")
-		sed -i "s/$line_text/level-seed=$seed/g" server.properties 		
+		sed -i "s/$line_text/level-seed=$seed/g" server.properties
 	fi
 	if [ -n "$server_ip" ]; then
 		echo "Setting ip"
 		line_text=$(cat server.properties | grep "server-ip=")
-		sed -i "s/$line_text/server-ip=$server_ip/g" server.properties 		
+		sed -i "s/$line_text/server-ip=$server_ip/g" server.properties
 	fi
 	if [ -n "$sim_chunks" ]; then
 		echo "Setting simulation chunks"
 		line_text=$(cat server.properties | grep "simulation-distance=")
-		sed -i "s/$line_text/simulation-distance=$sim_chunks/g" server.properties 		
+		sed -i "s/$line_text/simulation-distance=$sim_chunks/g" server.properties
 	fi
 	if [ -n "$view_chunks" ]; then
 		echo "Setting view distance"
@@ -79,13 +79,12 @@ apply_custom_configs() {
 init_install
 apply_custom_configs
 
-echo "Running server with $ALLOCATED_RAM of allocated memory"
-sh -c "echo java -Xms$ALLOCATED_RAM -Xmx$ALLOCATED_RAM -jar $SERVER_NAME nogui"
+echo "java -Xms$DEDICATED_RAM -Xmx$DEDICATED_RAM -jar $SERVER_NAME nogui"
 
 echo """
 	#!/bin/bash
-	java -Xms$ALLOCATED_RAM -Xmx$ALLOCATED_RAM -jar paper.jar nogui
-""" > start.sh
+	java -Xms$DEDICATED_RAM -Xmx$DEDICATED_RAM -jar paper.jar nogui
+""" >start.sh
 
 chmod +x start.sh
 
